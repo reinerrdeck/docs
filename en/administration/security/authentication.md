@@ -548,6 +548,7 @@ RDpropertyfilelogin {
         debug="true"
         service="sshd"
         supplementalRoles="readonly"
+        useUnixGroups="true";
         storePass="true";
 
     org.rundeck.jaas.jetty.JettyRolePropertyFileLoginModule required
@@ -575,10 +576,9 @@ These JAAS configuration properties are used by all of the Jetty PAM modules:
 
 Configuration properties:
 
-* `serviceName` - name of the PAM service configuration to use. (Required). Example: "sshd".
+* `service` - name of the PAM service configuration to use. (Required). Example: "sshd".
 * `useUnixGroups` - true/false. If true, the unix Groups defined for the user will be included as authorization roles. Default: false.
 * `supplementalRoles` - a comma-separated list of additional user roles to add to any authenticated user. Example: 'user,readonly'
-
 
 ### JettyRolePropertyFileLoginModule
 
