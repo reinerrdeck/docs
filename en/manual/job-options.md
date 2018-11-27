@@ -574,6 +574,46 @@ remote URL.
 
 > Note, It is also possible to declare a cycle of dependencies between option values, which will cause the automatic reloading to be disabled.  In this case the user must manually click the reload button to reload the option values if a dependency has changed.
 
+*Cascading Remote Options Example:*
+
+We need set dinamically some linux distros and versions, first we need create the JSON files:
+
+distros.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+[
+    {"name":"fedora", "value":"fedora.json"},
+    {"name":"ubuntus",  "value":"ubuntu.json"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+Note that value make references to others JSON files:
+
+fedora.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+[
+    {"name":"Spherical Cow", "value":"18"},
+    {"name":"Schrödinger's Cat",  "value":"19"},
+    {"name":"Heisenbug",  "value":"20"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ubuntu.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+[
+    {"name":"Intrepid Ibex", "value":"10.04"},
+    {"name":"Jaunty Jackalope",  "value":"9.04"},
+    {"name":"Karmic Koala",  "value":"9.10"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+Then in our job, we create the first option called "distros" using the first JSON file path in "Allowed Values > Remote URL", this path is an example. In your case make sure it is inside your projects:
+
+`file:/home/user/Rundeck/v3.0.7/projects/Project/MyOptions/distros.json`
+
+The second option call the first option like:
+
+`file:/home/user/Rundeck/v3.0.7/projects/Project/MyOptions/${option.distros.value}`
+
+Note that the second option call the first option, and when to change Linux distro, this box change options depending on the distro that we selected.
+
 ### Variable expansion in remote URLs
 
 The URL declared for the "valuesUrl" can embed variables which will be
