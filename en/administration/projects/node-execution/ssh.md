@@ -589,9 +589,11 @@ manual page for instructions.
 Use a wild card pattern to permit `RD_` prefixed variables to provide
 open access to Rundeck generated environment variables.
 
-Example in sshd_config:
+Example in /etc/ssh/sshd_config:
 
     # pass Rundeck variables
     AcceptEnv RD_*
+ 
+All changes need restart SSH service to take effect.
 
 [SSH]: https://en.wikipedia.org/wiki/Secure_Shell
