@@ -628,6 +628,58 @@ Passes the value of the selected "repository" option, or "" (blank) if it is not
 a dependent of the "repository" option, and if the "repository" value changes, the remote option values
 for this option will be reloaded.
 
+*Practical Example*
+
+We will create a job that print "The Operating System is: " and print the option using Cascade Options. We need three JSON files stored inside in project path:
+
+os.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+[
+   {"name":"Linux", "value":"linux.json"},
+   {"name":"Windows",  "value":"windows.json"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+linux.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+
+[
+    {"name":"Fedora", "value":"Fedora"},
+    {"name":"Ubuntu",  "value":"Ubuntu"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+windows.json:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.json}
+
+[
+    {"name":"Windows Server 2012", "value":"Windows Server 2012"},
+    {"name":"Windoes Server 2016",  "value":"Windoes Server 2016"}
+]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+For that we will create first option called "Family" and we will select on Allowed Values > Remote URL and in the Remote URL textbox put the path to os.json file, for example: 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash}
+file:/home/user/Rundeck-3.0.9/projects/ProjectCascade/json/os.json
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+And the second option is called "OS" and put the path of we are save the JSON files but instead put the JSON file we will put ${option.Family.value}, for example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash}
+file:/home/user/Rundeck-3.0.9/projects/ProjectCascade/json/${option.family.value}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The value of that option point to linux.json in case that user select "Linux" Option and point to windows.json in case that user select "Windows" option.
+
+To make it work, we need create a Command step with:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ {.bash}
+echo "The Operating System is: ${option.OS}"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+At the moment of run the job we can see that option change depending of Operating System that we selected.
+
 ### Remote request failures
 
 If the request for the remote option values fails, then the GUI form
