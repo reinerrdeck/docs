@@ -132,7 +132,7 @@ You can tell Jetty to honor
 `X-Forwarded-Proto`,  `X-Forwarded-Host`,
 `X-Forwarded-Server` and `X-Forwarded-For` headers in two ways:
 
-In [rundeck-config.properties][] you can set:
+In [rundeck-config.properties](https://docs.rundeck.com/docs/administration/configuration/configuration-file-reference.html#rundeck-config.properties) you can set:
 
     server.useForwardHeaders=true
 
@@ -148,7 +148,7 @@ For RPM/DEB install you can export the `RDECK_JVM_OPTS` variable in the file `/e
 
 This will enable Jetty to respond correctly when a forwarded request is first received.
 
-**Note:** You will still need to modify the `grails.serverURL` value in [rundeck-config.properties][] to let Rundeck know how to properly generate absolute URLs.
+**Note:** You will still need to modify the `grails.serverURL` value in [rundeck-config.properties](https://docs.rundeck.com/docs/administration/configuration/configuration-file-reference.html#rundeck-config.properties) to let Rundeck know how to properly generate absolute URLs.
 
 ## Disabling SSL Protocols
 
